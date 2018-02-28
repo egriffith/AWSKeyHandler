@@ -81,7 +81,9 @@ Operation would have succeeded, but was a dry run.
    
    
    
-```[user@localhost ~/bin/AWSKeyHandler]$ ./keyhandler.py -h   
+```
+[user@localhost ~/bin/AWSKeyHandler]$ ./keyhandler.py --help   
+
 usage: keyhandler.py [-h] [--keyName PUBLICKEYNAME] [--keyfile KEYFILEPATH]   
                      [--regions REGIONLIST] [--profile CREDPROFILE] [--dryrun]   
                      action   
@@ -110,4 +112,5 @@ optional arguments:
                         The profile specified in ~/.aws/credentials to use for   
                         permissions. Defaults to 'default' profile. Accepted   
                         by all actions.   
-  --dryrun              Sets the 'DryRun' flag on the upload_key API call.   ```
+  --dryrun              Sets the 'DryRun' flag on the upload_key API call.   
+  ```

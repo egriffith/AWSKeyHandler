@@ -1,7 +1,7 @@
 Simple python3 script to handle uploading, deleting, and listing of keys within AWS, making use of boto3.
 
 ## Arguments ##
-keyhandler.py accepts a variety of arguments and flags depending on the action being taken. The only mandatory
+keyhandler.py accepts a variety of arguments and flags depending on the action being taken. The only mandatory argument is one of three actions.
 
 Actions: 
 
@@ -10,6 +10,8 @@ Actions:
 "delete" --> Delete a specific key from the regions specified. --keyname is mandatory.
 
 "upload" --> Uploads a key to the regions specified. --keyfile will default to ~/.ssh/id_rsa unless otherwise specified, --keyname is mandatory for this command.
+
+Any other actions will throw an error.
 
 Additionally there are optional arguments for each command.
 

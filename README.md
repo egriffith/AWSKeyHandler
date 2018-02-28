@@ -23,7 +23,7 @@ Additionally there are optional arguments for each command.
 
 ## Examples ##
 
-[user@localhost ~/bin/AWSKeyHandler]$ ./keyhandler.py list -regions us-east-1,us-west-2  
+[user@localhost ~/bin/AWSKeyHandler]$ ./keyhandler.py list --regions us-east-1,us-west-2  
 ======= Public Keys available in: us-east-1 =======  
 id_rsa - 22:a0:b0:19:16:73:29:65:c6:c0:1d:10:42:b1:b6:c2  
    
@@ -34,7 +34,7 @@ id_rsa - 22:a0:b0:19:16:73:29:65:c6:c0:1d:10:42:b1:b6:c2
 <br />
 <br />
 
-[user@localhost ~/bin/AWSKeyHandler]$ ./keyhandler.py delete --keyname id_rsa -regions us-east-1  
+[user@localhost ~/bin/AWSKeyHandler]$ ./keyhandler.py delete --keyname id_rsa --regions us-east-1  
 Removing key 'id_rsa' from: us-east-1 --- Success.   
    
 <br />

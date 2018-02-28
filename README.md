@@ -21,76 +21,76 @@ Additionally there are optional arguments for each command.
 
 ## Examples ##
 
-[user@localhost ~/bin/AWSKeyHandler]$ ./keyhandler.py list -r us-east-1,us-west-2
-======= Public Keys available in: us-east-1 =======
-id_rsa - 22:a0:b0:19:16:73:29:65:c6:c0:1d:10:42:b1:b6:c2
-
-======= Public Keys available in: us-east-2 =======
-id_rsa - 22:a0:b0:19:16:73:29:65:c6:c0:1d:10:42:b1:b6:c2
-
-
-
-[user@localhost ~/bin/AWSKeyHandler]$ ./keyhandler.py delete -n id_rsa -r us-east-1
-Removing key 'id_rsa' from: us-east-1 --- Success.
+[user@localhost ~/bin/AWSKeyHandler]$ ./keyhandler.py list -r us-east-1,us-west-2. 
+======= Public Keys available in: us-east-1 =======  
+id_rsa - 22:a0:b0:19:16:73:29:65:c6:c0:1d:10:42:b1:b6:c2  
+   
+======= Public Keys available in: us-east-2 =======   
+id_rsa - 22:a0:b0:19:16:73:29:65:c6:c0:1d:10:42:b1:b6:c2   
 
 
 
-[user@localhost ~/bin/AWSKeyHandler]$ ./keyhandler.py list -r us-east-1,us-west-2
-======= Public Keys available in: us-east-1 =======
-
-======= Public Keys available in: us-east-2 =======
-id_rsa - 22:a0:b0:19:16:73:29:65:c6:c0:1d:10:42:b1:b6:c2
+[user@localhost ~/bin/AWSKeyHandler]$ ./keyhandler.py delete -n id_rsa -r us-east-1   
+Removing key 'id_rsa' from: us-east-1 --- Success.   
 
 
 
-[user@localhost ~/bin/AWSKeyHandler]$ ./keyhandler.py upload --keyname id_rsa_replacement --keyfile ~/.ssh/id_rsa.pub --region us-east-1
-Importing key to: us-east-1 --- Success.
+[user@localhost ~/bin/AWSKeyHandler]$ ./keyhandler.py list -r us-east-1,us-west-2   
+======= Public Keys available in: us-east-1 =======   
+
+======= Public Keys available in: us-east-2 =======   
+id_rsa - 22:a0:b0:19:16:73:29:65:c6:c0:1d:10:42:b1:b6:c2    
 
 
 
-[user@localhost ~/bin/AWSKeyHandler]$ ./keyhandler.py list -r us-east-1,us-east-2
-======= Public Keys available in: us-east-1 =======
-id_rsa_replacement - 22:a0:b0:19:16:73:29:65:c6:c0:1d:10:42:b1:b6:c2
-
-======= Public Keys available in: us-east-2 =======
-id_rsa - 22:a0:b0:19:16:73:29:65:c6:c0:1d:10:42:b1:b6:c2
+[user@localhost ~/bin/AWSKeyHandler]$ ./keyhandler.py upload --keyname id_rsa_replacement --keyfile ~/.ssh/id_rsa.pub --region us-east-1   
+Importing key to: us-east-1 --- Success.   
 
 
 
-[user@localhost ~/bin/AWSKeyHandler]$ ./keyhandler.py upload --keyname id_rsa_replacement --keyfile ~/.ssh/id_rsa.pub --region us-east-1 --dryrun
+[user@localhost ~/bin/AWSKeyHandler]$ ./keyhandler.py list -r us-east-1,us-east-2   
+======= Public Keys available in: us-east-1 =======   
+id_rsa_replacement - 22:a0:b0:19:16:73:29:65:c6:c0:1d:10:42:b1:b6:c2   
 
-Importing key to: us-east-1 --- Failed.
-Operation would have succeeded, but was a dry run.
+======= Public Keys available in: us-east-2 =======   
+id_rsa - 22:a0:b0:19:16:73:29:65:c6:c0:1d:10:42:b1:b6:c2   
 
 
 
-[user@localhost ~/bin/AWSKeyHandler]$ ./keyhandler.py -h
-usage: keyhandler.py [-h] [--keyName PUBLICKEYNAME] [--keyfile KEYFILEPATH]
-                     [--regions REGIONLIST] [--profile CREDPROFILE] [--dryrun]
-                     action
+[user@localhost ~/bin/AWSKeyHandler]$ ./keyhandler.py upload --keyname id_rsa_replacement --keyfile ~/.ssh/id_rsa.pub --region us-east-1 --dryrun   
 
-Upload, delete, or list SSH key pairs in AWS regions
+Importing key to: us-east-1 --- Failed.   
+Operation would have succeeded, but was a dry run.   
 
-positional arguments:
-  action                Valid actions are 'upload', 'delete', and 'list'
 
-optional arguments:
-  -h, --help            show this help message and exit
-  --keyName PUBLICKEYNAME, -n PUBLICKEYNAME
-                        Identifier of the key within AWS. If uploading, AWS
-                        will automatically add '.pem' onto the end in all
-                        connection dialogues. Mandatory if uploading or
-                        removing a key. Optional for listing.
-  --keyfile KEYFILEPATH, -f KEYFILEPATH
-                        Path to the public key file to upload. Required for
-                        uploading, will default to ~/.ssh/id_rsa.pub if not
-                        specified
-  --regions REGIONLIST, -r REGIONLIST
-                        Comma deliminated list of AWS regions to take action
-                        against. Defaults to all regions if not specified.
-                        Accepted by all actions.
-  --profile CREDPROFILE, -p CREDPROFILE
-                        The profile specified in ~/.aws/credentials to use for
-                        permissions. Defaults to 'default' profile. Accepted
-                        by all actions.
-  --dryrun              Sets the 'DryRun' flag on the upload_key API call.
+
+[user@localhost ~/bin/AWSKeyHandler]$ ./keyhandler.py -h   
+usage: keyhandler.py [-h] [--keyName PUBLICKEYNAME] [--keyfile KEYFILEPATH]   
+                     [--regions REGIONLIST] [--profile CREDPROFILE] [--dryrun]   
+                     action   
+
+Upload, delete, or list SSH key pairs in AWS regions   
+
+positional arguments:   
+  action                Valid actions are 'upload', 'delete', and 'list'   
+
+optional arguments:   
+  -h, --help            show this help message and exit   
+  --keyName PUBLICKEYNAME, -n PUBLICKEYNAME   
+                        Identifier of the key within AWS. If uploading, AWS   
+                        will automatically add '.pem' onto the end in all   
+                        connection dialogues. Mandatory if uploading or   
+                        removing a key. Optional for listing.   
+  --keyfile KEYFILEPATH, -f KEYFILEPATH   
+                        Path to the public key file to upload. Required for   
+                        uploading, will default to ~/.ssh/id_rsa.pub if not   
+                        specified   
+  --regions REGIONLIST, -r REGIONLIST   
+                        Comma deliminated list of AWS regions to take action   
+                        against. Defaults to all regions if not specified.   
+                        Accepted by all actions.   
+  --profile CREDPROFILE, -p CREDPROFILE   
+                        The profile specified in ~/.aws/credentials to use for   
+                        permissions. Defaults to 'default' profile. Accepted   
+                        by all actions.   
+  --dryrun              Sets the 'DryRun' flag on the upload_key API call.   

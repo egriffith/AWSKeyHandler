@@ -21,7 +21,7 @@ Additionally there are optional arguments for each command.
 
 ## Examples ##
 
-`[user@localhost ~/bin/AWSKeyHandler]$ ./keyhandler.py list -r us-east-1,us-west-2` 
+[user@localhost ~/bin/AWSKeyHandler]$ ./keyhandler.py list -r us-east-1,us-west-2  
 ======= Public Keys available in: us-east-1 =======  
 id_rsa - 22:a0:b0:19:16:73:29:65:c6:c0:1d:10:42:b1:b6:c2  
    
@@ -33,7 +33,7 @@ id_rsa - 22:a0:b0:19:16:73:29:65:c6:c0:1d:10:42:b1:b6:c2
    
    
    
-`[user@localhost ~/bin/AWSKeyHandler]$ ./keyhandler.py delete -n id_rsa -r us-east-1   `
+[user@localhost ~/bin/AWSKeyHandler]$ ./keyhandler.py delete -n id_rsa -r us-east-1  
 Removing key 'id_rsa' from: us-east-1 --- Success.   
    
    
@@ -41,8 +41,8 @@ Removing key 'id_rsa' from: us-east-1 --- Success.
    
    
    
-`[user@localhost ~/bin/AWSKeyHandler]$ ./keyhandler.py list -r us-east-1,us-west-2   `
-======= Public Keys available in: us-east-1 =======   
+[user@localhost ~/bin/AWSKeyHandler]$ ./keyhandler.py list -r us-east-1,us-west-2  
+======= Public Keys available in: us-east-1 =======   
 
 ======= Public Keys available in: us-east-2 =======   
 id_rsa - 22:a0:b0:19:16:73:29:65:c6:c0:1d:10:42:b1:b6:c2    
@@ -52,7 +52,7 @@ id_rsa - 22:a0:b0:19:16:73:29:65:c6:c0:1d:10:42:b1:b6:c2
    
    
    
-`[user@localhost ~/bin/AWSKeyHandler]$ ./keyhandler.py upload --keyname id_rsa_replacement --keyfile ~/.ssh/id_rsa.pub --region us-east-1   `
+[user@localhost ~/bin/AWSKeyHandler]$ ./keyhandler.py upload --keyname id_rsa_replacement --keyfile ~/.ssh/id_rsa.pub --region us-east-1   
 Importing key to: us-east-1 --- Success.   
    
    
@@ -60,7 +60,7 @@ Importing key to: us-east-1 --- Success.
    
    
    
-`[user@localhost ~/bin/AWSKeyHandler]$ ./keyhandler.py list -r us-east-1,us-east-2   `
+[user@localhost ~/bin/AWSKeyHandler]$ ./keyhandler.py list -r us-east-1,us-east-2   
 ======= Public Keys available in: us-east-1 =======   
 id_rsa_replacement - 22:a0:b0:19:16:73:29:65:c6:c0:1d:10:42:b1:b6:c2   
 
@@ -72,7 +72,7 @@ id_rsa - 22:a0:b0:19:16:73:29:65:c6:c0:1d:10:42:b1:b6:c2
    
    
    
-`[user@localhost ~/bin/AWSKeyHandler]$ ./keyhandler.py upload --keyname id_rsa_replacement --keyfile ~/.ssh/id_rsa.pub --region us-east-1 --dryrun   `
+[user@localhost ~/bin/AWSKeyHandler]$ ./keyhandler.py upload --keyname id_rsa_replacement --keyfile ~/.ssh/id_rsa.pub --region us-east-1 --dryrun   
 
 Importing key to: us-east-1 --- Failed.   
 Operation would have succeeded, but was a dry run.   

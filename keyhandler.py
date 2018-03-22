@@ -16,7 +16,7 @@ def buildArgParser(argv):
     parser.add_argument('action',
                         help="Valid actions are 'upload', 'delete', and 'list' ")
 
-    parser.add_argument('--keyName', '-n',
+    parser.add_argument('--keyname', '-n',
                         dest="publicKeyName",
                         help="Identifier of the key within AWS. \
                         If uploading, AWS will automatically add '.pem' onto the end in all connection dialogues.\

@@ -146,36 +146,37 @@ def readKeyFile(keyFilePath):
 
     return publicKeyText
 
-def parseAction(arglist):
-    return 0
+def parseAction(argList):
+    if argList.action == "upload":
+        return 0
 
-def main(argv):
-    global botoSession
-    global dryRun
+    elif argList.action == "delete":
+        return 0
 
-    arglist = buildArgParser(argv)
-    botoSession = boto3.Session(profile_name=arglist.credProfile)
-    dryRun = arglist.dryrun
-
-    if arglist.action == "upload":
-        uploadKey(arglist.publicKeyName, 
-                readKeyFile(arglist.keyFilePath), 
-                manipRegionInput(arglist.regionList), 
-                arglist.dryrun,
-                arglist.credProfile)
-
-    elif arglist.action == "delete":
-        wipeKey(arglist.publicKeyName,
-                manipRegionInput(arglist.regionList),
-                arglist.credProfile,
-                arglist.dryrun)
-
-    elif arglist.action == "list":
-        listKeys(manipRegionInput(arglist.regionList), arglist.credProfile, arglist.dryrun)
+    elif argList.action == "list":
+        return 0
 
     else:
-        print("Action '" + arglist.action + "' not recognized.")
+        print("Action '" + argList.action + "' not recognized.")
         sys.exit(1)
+
+def setupCredentials(credProfile):
+    global botoSession
+    if credProfile == None:
+        botoSession = boto3.Session()
+    else:
+        botoSession = boto3.Session(profile_name=credProfile)
+
+def main(argv):
+    global dryRun
+
+    argList = buildArgParser(argv)
+    setupCredentials(argList.credProfile)
+    dryRun = argList.dryrun
+
+    parseAction(argList)
+
+    return 0
 
  
 if __name__ == "__main__":

@@ -14,7 +14,7 @@ def buildArgParser(argv):
     parser = argparse.ArgumentParser(description="Upload, delete, or list SSH key pairs in AWS regions")
 
     parser.add_argument('action',
-                        help="Valid actions are 'upload', 'delete', and 'list' ")
+                        help="Valid actions are 'upload', 'delete', 'list' and 'nuke' ")
 
     parser.add_argument('--keyname', '-n',
                         dest="publicKeyName",
@@ -35,17 +35,15 @@ def buildArgParser(argv):
                         default="default",
                         help="The profile specified in ~/.aws/credentials to use for permissions.\
                         Defaults to 'default' profile. Accepted by all actions.")
-
-    #parser.add_argument('--debug', action="store_true",
-    #                    help="Debug flag. If set, the script will output what the script -would- do without doing it.")
     
     parser.add_argument('--dryrun', action="store_true",
                         help="Sets the 'DryRun' flag on the upload_key API call. ")
     
+    
     return parser.parse_args()
 
 
-def wipeKey(publicKeyName, regionList, credProfile, dryrun):
+def wipeKeyMeta(publicKeyName, regionList, credProfile, dryrun):
     if publicKeyName == None:
         print("argument '--keyname / -n' is required for wiping a key.")
         sys.exit(1)
@@ -73,8 +71,29 @@ def wipeKey(publicKeyName, regionList, credProfile, dryrun):
 
     return 0
 
+def wipeKeyRegion(publicKeyName, region, dryrun):
+    return 0
+    print("Removing key '" + publicKeyName + "' from: " + region + " --- ", end="")
+        try:
+            session.client("ec2",region_name=region).delete_key_pair(
+                                        KeyName=publicKeyName,
+                                        DryRun=dryrun)
+        except botocore.exceptions.ClientError as error:
+            print("Failed.")
+            if error.response['Error']['Code'] == "DryRunOperation":
+                print("Operation would have succeeded, but was a dry run.\n")
+                continue
+            elif error.response['Error']['Code'] == "UnauthorizedOperation":
+                print("Operation failed due to permissions.\n")
+                continue
+            else:
+                print(str(error) + "\n")
+                sys.exit(1)
 
-def uploadKey(publicKeyName, publicKeyText, regionList, dryRun, credProfile):
+        print("Success.\n")
+
+
+def uploadKeyMeta(publicKeyName, publicKeyText, regionList, dryRun, credProfile):
     if publicKeyName == None:
         print("argument '--keyname / -n' is required for uploading a key.")
         sys.exit(1)
@@ -103,8 +122,11 @@ def uploadKey(publicKeyName, publicKeyText, regionList, dryRun, credProfile):
 
     return 0
 
+    def uploadKeyRegion():
+        return 0
 
-def listKeys(regionList, credProfile, dryrun, publicKeyName=[]):
+
+def listKeysMeta(regionList, credProfile, dryrun, publicKeyName=[]):
     session = boto3.Session(profile_name=credProfile)
     for region in regionList:
         print("======= Public Keys available in: " + region + " =======")
@@ -131,8 +153,33 @@ def listKeys(regionList, credProfile, dryrun, publicKeyName=[]):
 
     return 0
 
+    def listRegionKeys(region, dryrun, publicKeyName=[]):
+        return 0
 
-def manipRegionInput(regionInput):
+        print("======= Public Keys available in: " + region + " =======")
+        try:
+            keyList = session.client("ec2",region_name=region).describe_key_pairs(
+                                        KeyNames=publicKeyName,
+                                        DryRun=dryrun)['KeyPairs']
+        except botocore.exceptions.ClientError as error:
+            print("Failed.")
+            if error.response['Error']['Code'] == "DryRunOperation":
+                print("Operation would have succeeded, but was a dry run.\n")
+                continue
+            elif error.response['Error']['Code'] == "UnauthorizedOperation":
+                print("Operation failed due to permissions.\n")
+                continue
+            else:
+                print(str(error) + "\n")
+                sys.exit(1)
+        
+        for index, item in enumerate(keyList):
+            print(item['KeyName'] + " - " + item['KeyFingerprint'])
+
+        print("")
+
+
+def parseRegionInput(regionInput):
     regionInput = regionInput.lower()
     regionInput = regionInput.split(",")
 
@@ -140,7 +187,6 @@ def manipRegionInput(regionInput):
         regionInput = boto3.session.Session().get_available_regions("ec2")
 
     return regionInput
-
 
 def readKeyFile(keyFilePath):
     try:
@@ -152,8 +198,13 @@ def readKeyFile(keyFilePath):
 
     return publicKeyText
 
+def parseAction(arglist):
+    return 0
 
-def main(argv):                        
+def main(argv):
+    global botoSession
+    botoSession = boto3.Session(profile_name=credProfile)
+
     arglist = buildArgParser(argv)
 
     if arglist.action == "upload":

@@ -35,9 +35,6 @@ def buildArgParser(argv):
                         default="default",
                         help="The profile specified in ~/.aws/credentials to use for permissions.\
                         Defaults to 'default' profile. Accepted by all actions.")
-
-    #parser.add_argument('--debug', action="store_true",
-    #                    help="Debug flag. If set, the script will output what the script -would- do without doing it.")
     
     parser.add_argument('--dryrun', action="store_true",
                         help="Sets the 'DryRun' flag on the upload_key API call. ")
